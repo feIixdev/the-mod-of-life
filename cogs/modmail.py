@@ -779,6 +779,7 @@ class Modmail(commands.Cog):
     @commands.command(usage="<users_or_roles...> [options]", cooldown_after_parsing=True)
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
+    @commands.cooldown(1, 600, BucketType.channel)
     async def adduser(self, ctx, *users_arg: Union[discord.Member, discord.Role, str]):
         """Adds a user to a modmail thread
 
@@ -882,6 +883,7 @@ class Modmail(commands.Cog):
     @commands.command(usage="<users_or_roles...> [options]", cooldown_after_parsing=True)
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
+    @commands.cooldown(1, 600, BucketType.channel)
     async def removeuser(self, ctx, *users_arg: Union[discord.Member, discord.Role, str]):
         """Removes a user from a modmail thread
 
