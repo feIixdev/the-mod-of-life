@@ -779,7 +779,6 @@ class Modmail(commands.Cog):
     @commands.command(usage="<users_or_roles...> [options]", cooldown_after_parsing=True)
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
-    @commands.cooldown(1, 600, BucketType.channel)
     async def adduser(self, ctx, *users_arg: Union[discord.Member, discord.Role, str]):
         """Adds a user to a modmail thread
 
@@ -883,7 +882,6 @@ class Modmail(commands.Cog):
     @commands.command(usage="<users_or_roles...> [options]", cooldown_after_parsing=True)
     @checks.has_permissions(PermissionLevel.SUPPORTER)
     @checks.thread_only()
-    @commands.cooldown(1, 600, BucketType.channel)
     async def removeuser(self, ctx, *users_arg: Union[discord.Member, discord.Role, str]):
         """Removes a user from a modmail thread
 
@@ -895,6 +893,12 @@ class Modmail(commands.Cog):
             if isinstance(u, str):
                 if "silent" in u or "silently" in u:
                     silent = True
+                else:
+                    try:
+                        mem = await self.bot.guild.fetch_member(int(u))
+                        users.append(mem)
+                    except:
+                        return await ctx.send("Ok so please if you see this make sure it is a CORRECT DISCORD ID and it is in main CA server love yall. ZOOSE UR AMAZING!")
             elif isinstance(u, discord.Role):
                 users += u.members
             elif isinstance(u, discord.Member):
