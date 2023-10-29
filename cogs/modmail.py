@@ -791,6 +791,12 @@ class Modmail(commands.Cog):
             if isinstance(u, str):
                 if "silent" in u or "silently" in u:
                     silent = True
+                else:
+                    try:
+                        mem = await self.bot.guild.fetch_member(int(u))
+                        users.append(mem)
+                    except:
+                        return await ctx.send("Ok so please if you see this make sure it is a CORRECT DISCORD ID and it is in main CA server love yall. GO MAISIE!")
             elif isinstance(u, discord.Role):
                 users += u.members
             elif isinstance(u, discord.Member):
